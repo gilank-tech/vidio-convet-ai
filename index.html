@@ -3,172 +3,394 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Cinematic AI - Ubah prompt teks menjadi video sinematik dengan AI. Tulis adegan yang kamu inginkan dan generate video instan.">
-
-    <title>Cinematic AI - AI Video Generator</title>
-
+    <meta name="description" content="Cinematic AI by NEXORA - AI Video Production Engine. Workstation untuk generate video sinematik dari prompt.">
+    <title>NEXORA — Cinematic AI - Control Deck</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
     <div class="app">
-
-        <!-- HEADER -->
-        <header class="header">
-            <a href="./" class="logo" aria-label="Cinematic AI - Home">
-                CINEMATIC AI
-            </a>
-
-            <div class="ai-status" aria-live="polite" title="Frontend ready - belum terhubung ke AI backend">
-                <span aria-hidden="true"></span>
-                AI READY
+        <!-- HEADER COMPACT — NEXORA / CINEMATIC AI -->
+        <header class="header header--deck">
+            <div class="header__left">
+                <a href="./" class="brand-lockup" aria-label="NEXORA Cinematic AI - Home">
+                    <span class="nexora-mark" aria-hidden="true">
+                        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+                            <defs>
+                                <linearGradient id="nexora-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#00d9ff"/>
+                                    <stop offset="56%" stop-color="#5b7cff"/>
+                                    <stop offset="100%" stop-color="#9b5cff"/>
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="25" height="25" rx="7" fill="url(#nexora-grad)"/>
+                            <rect x="0.5" y="0.5" width="25" height="25" rx="7" stroke="rgba(255,255,255,0.10)"/>
+                            <path d="M7.2 18V7.8H8.9L15.3 14.6V7.8H17.8V18H16.1L9.6 11.1V18H7.2Z" fill="white" fill-opacity="0.96"/>
+                            <path d="M4.6 13C4.6 8.4 8.3 4.7 13 4.7C15.2 4.7 17.3 5.5 18.9 6.9" stroke="white" stroke-opacity="0.22" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+                        </svg>
+                    </span>
+                    <span class="brand-text">
+                        <span class="brand-line">
+                            <span class="brand-company">NEXORA</span>
+                            <span class="brand-sep" aria-hidden="true">◆</span>
+                            <span class="brand-product">CINEMATIC AI</span>
+                        </span>
+                        <span class="brand-descriptor">AI VIDEO PRODUCTION ENGINE</span>
+                    </span>
+                </a>
+            </div>
+            <div class="header__right">
+                <div class="ai-status" aria-live="polite" title="NEXORA AI CORE ready">
+                    <span class="ai-status__label">NEXORA AI CORE</span>
+                    <span class="ai-status__dot" aria-hidden="true"></span>
+                    <span class="ai-status__text">READY</span>
+                </div>
             </div>
         </header>
 
-
-        <!-- MAIN -->
-        <main>
-
-            <!-- INTRO -->
-            <section class="intro">
-
-                <p class="subtitle">
-                    AI VIDEO GENERATOR
-                </p>
-
-                <h1>
-                    Turn Your Prompt<br>
-                    Into <span>Cinematic Video</span>
-                </h1>
-
-                <p class="description">
-                    Masukkan prompt apa saja. AI akan memahami
-                    isi prompt dan menghasilkan video sesuai dengan
-                    adegan yang kamu inginkan.
-                </p>
-
-            </section>
-
-
-            <!-- PROMPT -->
-            <section class="generator" aria-labelledby="prompt-title">
-
-                <div class="section-title" id="prompt-title">
-                    <span aria-hidden="true">01</span>
-                    YOUR PROMPT
-                </div>
-
-                <div class="prompt-box">
-
-                    <label for="promptInput" class="sr-only">Prompt video</label>
-
-                    <textarea
-                        id="promptInput"
-                        placeholder="Tulis prompt video kamu di sini... Contoh: Seorang samurai berjalan di hujan malam neon Tokyo, sinematik 4K"
-                        maxlength="2000"
-                        rows="8"
-                        aria-describedby="promptHint promptError charCount"></textarea>
-
-                    <div class="prompt-bottom">
-
-                        <div class="prompt-meta">
-                            <div id="promptHint" class="prompt-hint">
-                                Jelaskan adegan yang ingin kamu buat.
+        <main class="deck">
+            <!-- WORKSPACE GRID -->
+            <div class="workspace">
+                <!-- LEFT: PROMPT + AI BRAIN -->
+                <div class="workspace__left">
+                    <!-- PROMPT / SCENE -->
+                    <section class="panel panel--prompt" aria-labelledby="prompt-title">
+                        <div class="panel__header">
+                            <h2 class="panel__title" id="prompt-title">PROMPT / SCENE</h2>
+                            <div class="prompt-mode" role="tablist" aria-label="Prompt Mode">
+                                <button type="button" class="prompt-mode__btn is-active" data-mode="natural" role="tab" aria-selected="true" aria-controls="promptInput">NATURAL</button>
+                                <button type="button" class="prompt-mode__btn" data-mode="json" role="tab" aria-selected="false" aria-controls="promptInput">JSON</button>
                             </div>
-                            <p id="promptError" class="prompt-error" hidden role="alert"></p>
                         </div>
 
-                        <div class="prompt-actions">
-                            <span id="charCount" class="char-count" aria-live="polite">0 / 2000</span>
-                            <button
-                                id="generateBtn"
-                                type="button"
-                                aria-label="Generate video dari prompt">
-                                GENERATE VIDEO
-                                <span aria-hidden="true">✦</span>
+                        <div class="prompt-box">
+                            <label for="promptInput" class="sr-only">Prompt video</label>
+                            <textarea
+                                id="promptInput"
+                                placeholder="Tulis prompt cinematic kamu di sini... Contoh: Seorang samurai berjalan di tengah hujan neon Tokyo, kamera mengikuti dari belakang, cinematic 4K..."
+                                maxlength="10000"
+                                rows="7"
+                                aria-describedby="promptHint promptError charCount jsonStatus"></textarea>
+                            <button id="clearPromptBtn" type="button" class="clear-prompt-btn" aria-label="Hapus prompt" title="Hapus prompt" disabled>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+                                    <path d="M10 11v6"></path>
+                                    <path d="M14 11v6"></path>
+                                    <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
+                                </svg>
+                            </button>
+                            <div class="prompt-bottom">
+                                <div class="prompt-meta">
+                                    <div id="promptHint" class="prompt-hint">Jelaskan adegan yang ingin kamu buat.</div>
+                                    <p id="promptError" class="prompt-error" hidden role="alert"></p>
+                                </div>
+                                <span id="charCount" class="char-count" aria-live="polite">0 / 10000</span>
+                            </div>
+                        </div>
+
+                        <div id="jsonStatus" class="json-status" hidden role="status" aria-live="polite"></div>
+                    </section>
+
+                    <!-- AI BRAIN COMPACT — NEXORA AI CORE -->
+                    <section class="panel panel--brain" aria-labelledby="brain-title">
+                        <div class="panel__header panel__header--tight">
+                            <h2 class="panel__title" id="brain-title">AI BRAIN <span class="ai-brain-core">NEXORA AI CORE</span> <span class="panel__sub">PROMPT ANALYSIS</span></h2>
+                            <span class="ai-brain-badge" id="aiBrainBadge">NATURAL</span>
+                        </div>
+
+                        <div id="aiBrainPanel" class="ai-brain-compact" aria-live="polite">
+                            <!-- Natural state -->
+                            <div id="aiBrainNatural" class="ai-brain-natural">
+                                <span class="ai-brain-natural__dot" aria-hidden="true"></span>
+                                <span>Natural language input — AI akan memahami struktur sinematik otomatis.</span>
+                            </div>
+                            <!-- JSON state (hidden by default, shown via JS) -->
+                            <div id="aiBrainJson" class="ai-brain-json" hidden>
+                                <div class="ai-brain-status">
+                                    <span id="aiBrainValid" class="ai-brain-status__item is-ok">✓ JSON VALID</span>
+                                    <span id="aiBrainCount" class="ai-brain-status__item is-ok">✓ 10 PARAMETERS</span>
+                                </div>
+                                <div class="ai-brain-chips" id="aiBrainGrid">
+                                    <span class="ai-brain-chip" data-param="subject">SUBJECT</span>
+                                    <span class="ai-brain-chip" data-param="environment">ENVIRONMENT</span>
+                                    <span class="ai-brain-chip" data-param="style">STYLE</span>
+                                    <span class="ai-brain-chip" data-param="lighting">LIGHTING</span>
+                                    <span class="ai-brain-chip" data-param="colorPalette">COLOR</span>
+                                    <span class="ai-brain-chip" data-param="composition">CAMERA</span>
+                                    <span class="ai-brain-chip" data-param="faceDetails">FACE</span>
+                                    <span class="ai-brain-chip" data-param="technicalSettings">TECHNICAL</span>
+                                    <span class="ai-brain-chip" data-param="mood">MOOD</span>
+                                    <span class="ai-brain-chip" data-param="negativePrompt">NEGATIVE</span>
+                                </div>
+                                <!-- Keep legacy grid for JS compatibility (hidden) -->
+                                <div hidden>
+                                    <div class="ai-brain-param" data-param="subject"><span class="ai-brain-param__dot">✓</span> Subject</div>
+                                    <div class="ai-brain-param" data-param="environment"><span>✓</span> Environment</div>
+                                    <div class="ai-brain-param" data-param="style"><span>✓</span> Style</div>
+                                    <div class="ai-brain-param" data-param="lighting"><span>✓</span> Lighting</div>
+                                    <div class="ai-brain-param" data-param="colorPalette"><span>✓</span> Color Palette</div>
+                                    <div class="ai-brain-param" data-param="composition"><span>✓</span> Composition</div>
+                                    <div class="ai-brain-param" data-param="faceDetails"><span>✓</span> Face Details</div>
+                                    <div class="ai-brain-param" data-param="technicalSettings"><span>✓</span> Technical Settings</div>
+                                    <div class="ai-brain-param" data-param="mood"><span>✓</span> Mood</div>
+                                    <div class="ai-brain-param" data-param="negativePrompt"><span>✓</span> Negative Prompt</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- OUTPUT FORMAT - 3 PLATFORMS ONLY -->
+                    <section class="panel panel--format" aria-labelledby="format-title">
+                        <div class="panel__header">
+                            <h2 class="panel__title" id="format-title">OUTPUT FORMAT</h2>
+                            <span class="panel__meta">3 PLATFORMS</span>
+                        </div>
+
+                        <div class="format-grid format-grid--3" role="radiogroup" aria-labelledby="format-title">
+                            <button type="button" class="format-card" data-format="tiktok" role="radio" aria-checked="false" aria-label="TikTok 9:16 1080x1920 Portrait">
+                                <div class="format-card__top">
+                                    <span class="format-card__icon" aria-hidden="true">◇</span>
+                                    <span class="format-card__check" aria-hidden="true">✓</span>
+                                </div>
+                                <div class="format-card__platform">TikTok</div>
+                                <div class="format-card__ratio">9:16</div>
+                                <div class="format-card__res">1080×1920</div>
+                            </button>
+
+                            <button type="button" class="format-card is-selected" data-format="youtubeShorts" role="radio" aria-checked="true" aria-label="YouTube Shorts 9:16 1080x1920 Portrait">
+                                <div class="format-card__top">
+                                    <span class="format-card__icon" aria-hidden="true">◇</span>
+                                    <span class="format-card__check" aria-hidden="true">✓</span>
+                                </div>
+                                <div class="format-card__platform">YouTube Shorts</div>
+                                <div class="format-card__ratio">9:16</div>
+                                <div class="format-card__res">1080×1920</div>
+                            </button>
+
+                            <button type="button" class="format-card" data-format="facebookReels" role="radio" aria-checked="false" aria-label="Facebook Reels 9:16 1080x1920 Portrait">
+                                <div class="format-card__top">
+                                    <span class="format-card__icon" aria-hidden="true">◇</span>
+                                    <span class="format-card__check" aria-hidden="true">✓</span>
+                                </div>
+                                <div class="format-card__platform">Facebook Reels</div>
+                                <div class="format-card__ratio">9:16</div>
+                                <div class="format-card__res">1080×1920</div>
                             </button>
                         </div>
 
-                    </div>
+                        <!-- Keep legacy selectedInfo for JS (hidden, but updated) -->
+                        <div id="selectedInfo" class="selected-info" hidden aria-live="polite">
+                            <div class="selected-info__label">Selected:</div>
+                            <div class="selected-info__value">
+                                <strong id="selectedPlatform">YouTube Shorts</strong>
+                                <span id="selectedRatio">9:16 Portrait</span>
+                                <span id="selectedResolution">1080 × 1920</span>
+                            </div>
+                        </div>
+                    </section>
 
-                </div>
+                    <!-- VIDEO SETTINGS TOOLBAR -->
+                    <section class="panel panel--settings" aria-label="Video Settings">
+                        <div class="settings-bar">
+                            <div class="settings-item">
+                                <span class="settings-label">ASPECT</span>
+                                <span class="settings-value" id="settingAspect">9:16</span>
+                            </div>
+                            <div class="settings-item">
+                                <span class="settings-label">RESOLUTION</span>
+                                <span class="settings-value" id="settingRes">1080×1920</span>
+                            </div>
+                            <div class="settings-item">
+                                <span class="settings-label">FPS</span>
+                                <span class="settings-value">30</span>
+                            </div>
+                            <div class="settings-item">
+                                <span class="settings-label">QUALITY</span>
+                                <span class="settings-value">4K</span>
+                            </div>
+                            <div class="settings-item settings-item--hint">
+                                <span class="settings-hint">FPS/Quality UI state — backend ready</span>
+                            </div>
+                        </div>
+                    </section>
 
-            </section>
-
-
-            <!-- RESULT -->
-            <section class="result" aria-labelledby="result-title">
-
-                <div class="section-title" id="result-title">
-                    <span aria-hidden="true">02</span>
-                    VIDEO RESULT
-                </div>
-
-                <div class="video-box" id="videoBox" aria-live="polite" aria-busy="false">
-
-                    <div
-                        id="emptyState"
-                        class="empty-state">
-
-                        <div class="play-button" aria-hidden="true">
-                            ▶
+                    <!-- AUDIO ENGINE — COMPACT MINIMAL CONTROL DECK -->
+                    <section class="panel panel--audio panel--audio-compact" aria-labelledby="audio-title">
+                        <div class="panel__header panel__header--audio">
+                            <h2 class="panel__title" id="audio-title">AUDIO ENGINE</h2>
+                            <span class="audio-status is-ready" id="audioStatus" aria-live="polite"><span class="audio-status__dot" aria-hidden="true"></span> READY</span>
                         </div>
 
-                        <h2>
-                            Your video will appear here
-                        </h2>
+                        <div class="audio-row audio-row--layers" role="group" aria-label="Audio Layers">
+                            <div class="audio-layer is-on" data-layer="ambience">
+                                <div class="audio-layer__main">
+                                    <span class="audio-layer__name">AMBIENCE</span>
+                                    <span class="audio-layer__value">Deep Ocean</span>
+                                </div>
+                                <button class="audio-toggle is-on" type="button" role="switch" aria-checked="true" aria-label="Toggle Ambience" data-layer="ambience">
+                                    <span class="audio-toggle__track"><span class="audio-toggle__thumb"></span></span>
+                                </button>
+                            </div>
+                            <div class="audio-layer is-on" data-layer="foley">
+                                <div class="audio-layer__main">
+                                    <span class="audio-layer__name">FOLEY</span>
+                                    <span class="audio-layer__value">Cinematic</span>
+                                </div>
+                                <button class="audio-toggle is-on" type="button" role="switch" aria-checked="true" aria-label="Toggle Foley" data-layer="foley">
+                                    <span class="audio-toggle__track"><span class="audio-toggle__thumb"></span></span>
+                                </button>
+                            </div>
+                            <div class="audio-layer" data-layer="voice">
+                                <div class="audio-layer__main">
+                                    <span class="audio-layer__name">VOICE</span>
+                                    <span class="audio-layer__value">No Voice</span>
+                                </div>
+                                <button class="audio-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle Voice" data-layer="voice">
+                                    <span class="audio-toggle__track"><span class="audio-toggle__thumb"></span></span>
+                                </button>
+                            </div>
+                            <div class="audio-layer is-on" data-layer="music">
+                                <div class="audio-layer__main">
+                                    <span class="audio-layer__name">MUSIC</span>
+                                    <span class="audio-layer__value">Suspense</span>
+                                </div>
+                                <button class="audio-toggle is-on" type="button" role="switch" aria-checked="true" aria-label="Toggle Music" data-layer="music">
+                                    <span class="audio-toggle__track"><span class="audio-toggle__thumb"></span></span>
+                                </button>
+                            </div>
+                        </div>
 
-                        <p>
-                            Masukkan prompt kemudian tekan
-                            Generate Video.
-                        </p>
+                        <div class="audio-row audio-row--settings" aria-label="Audio Settings">
+                            <button class="audio-ctrl__btn audio-ctrl__btn--inline" type="button" data-ctrl="profile" aria-label="Change Audio Profile">CINEMATIC</button>
+                            <span class="audio-sep" aria-hidden="true">·</span>
+                            <button class="audio-ctrl__btn audio-ctrl__btn--inline" type="button" data-ctrl="clarity" aria-label="Change Clarity">HIGH</button>
+                            <span class="audio-sep" aria-hidden="true">·</span>
+                            <button class="audio-ctrl__btn audio-ctrl__btn--inline" type="button" data-ctrl="dynamic" aria-label="Change Dynamic Control">GENTLE</button>
+                            <span class="audio-sep" aria-hidden="true">·</span>
+                            <button class="audio-ctrl__btn audio-ctrl__btn--inline is-on" type="button" data-ctrl="noise" role="switch" aria-checked="true" aria-label="Toggle Noise Reduction">NR ON</button>
+                            <span class="audio-sep" aria-hidden="true">·</span>
+                            <button class="audio-ctrl__btn audio-ctrl__btn--inline is-on" type="button" data-ctrl="loudness" role="switch" aria-checked="true" aria-label="Toggle Loudness Normalization">NORMALIZE ON</button>
+                        </div>
 
-                    </div>
+                        <div class="audio-row audio-row--master">
+                            <div class="audio-master audio-master--inline">
+                                <span class="audio-master__label">MASTER</span>
+                                <span class="audio-master__value" id="masterAudioValue">62%</span>
+                                <div class="audio-slider-wrap audio-slider-wrap--inline">
+                                    <div class="audio-slider__fill" id="masterAudioFill" style="width:62%"></div>
+                                    <input id="masterAudioSlider" class="audio-slider" type="range" min="0" max="100" value="62" aria-label="Master Audio volume">
+                                </div>
+                            </div>
+                            <button id="audioPreviewBtn" type="button" class="audio-preview-btn audio-preview-btn--compact" aria-label="Audio Preview">
+                                <span class="audio-preview-btn__text">AUDIO PREVIEW</span>
+                                <span class="audio-preview-btn__icon" aria-hidden="true">▶</span>
+                            </button>
+                        </div>
+                    </section>
 
-                    <div id="loadingState" class="loading-state" hidden>
-                        <div class="spinner" aria-hidden="true"></div>
-                        <p>Generating your cinematic video...</p>
-                        <span>Ini mungkin memakan waktu 30 detik - 2 menit</span>
-                    </div>
-
-                    <video
-                        id="resultVideo"
-                        controls
-                        playsinline
-                        preload="metadata"
-                        poster=""
-                        hidden>
-                    </video>
-
-                    <div id="videoActions" class="video-actions" hidden>
-                        <a id="downloadBtn" class="download-btn" href="#" download="cinematic-video.mp4">DOWNLOAD VIDEO</a>
-                        <button id="resetBtn" type="button" class="reset-btn">BUAT LAGI</button>
-                    </div>
-
+                    <!-- GENERATE ACTION — COMPACT CTA -->
+                    <section class="panel panel--generate" aria-label="Generate">
+                        <button id="generateBtn" type="button" class="generate-btn" aria-label="Generate cinematic video">
+                            <span class="generate-btn__icon" aria-hidden="true">✦</span>
+                            <span class="generate-btn__text">GENERATE CINEMATIC VIDEO</span>
+                        </button>
+                        <div class="generate-footer">
+                            <div class="generate-status" aria-live="polite">
+                                <span id="generateStatus" class="generate-status__text">READY TO GENERATE</span>
+                                <span class="generate-status__dot" aria-hidden="true"></span>
+                            </div>
+                            <p class="generate-hint">AI Brain + Format → Video Engine</p>
+                        </div>
+                    </section>
                 </div>
 
-            </section>
+                <!-- RIGHT: VIDEO PREVIEW + RESULT (ONE SINGLE PANEL) -->
+                <div class="workspace__right">
+                    <section class="panel panel--preview-result" aria-labelledby="preview-title">
+                        <div class="panel__header">
+                            <h2 class="panel__title" id="preview-title">VIDEO PREVIEW</h2>
+                            <span class="panel__meta" id="previewMeta">9:16 • 1080×1920</span>
+                        </div>
 
+                        <div class="video-stage">
+                            <div class="video-box video-frame" id="videoBox" aria-live="polite" aria-busy="false" data-ratio="9:16">
+                                <div id="emptyState" class="empty-state">
+                                    <div class="play-button" aria-hidden="true">▶</div>
+                                    <h2>Your video will appear here</h2>
+                                    <p>Masukkan prompt → pilih format → Generate</p>
+                                </div>
+                                <div id="loadingState" class="loading-state" hidden>
+                                    <div class="spinner" aria-hidden="true"></div>
+                                    <p>Generating cinematic video...</p>
+                                    <span>30 detik – 2 menit</span>
+                                </div>
+                                <video id="resultVideo" controls playsinline preload="metadata" poster="" hidden></video>
+                                <div id="resultMeta" class="result-meta" hidden aria-live="polite">
+                                    <div class="result-meta__title">Generation Settings</div>
+                                    <div class="result-meta__grid">
+                                        <span>Platform: <strong id="metaPlatform">-</strong></span>
+                                        <span>Ratio: <strong id="metaRatio">-</strong></span>
+                                        <span>Resolution: <strong id="metaResolution">-</strong></span>
+                                        <span>Orientation: <strong id="metaOrientation">-</strong></span>
+                                    </div>
+                                    <div class="result-meta__prompt">Prompt: <span id="metaPrompt">-</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="preview-meta">
+                            <span id="previewPlatform">YouTube Shorts</span>
+                            <span aria-hidden="true">•</span>
+                            <span id="previewRatio">9:16</span>
+                            <span aria-hidden="true">•</span>
+                            <span id="previewRes">1080 × 1920</span>
+                        </div>
+
+                        <div class="panel__divider" aria-hidden="true"></div>
+
+                        <div class="result-strip" aria-labelledby="result-title">
+                            <div class="result-strip__header">
+                                <h2 class="panel__title panel__title--small" id="result-title">VIDEO RESULT</h2>
+                                <span class="panel__meta" id="resultMetaLabel">WAITING</span>
+                            </div>
+
+                            <div id="videoResultBar" class="video-result-bar">
+                                <div id="videoResultInfo" class="video-result-info" aria-live="polite">
+                                    <span id="videoInfoPlatform">YouTube Shorts</span>
+                                    <span aria-hidden="true">•</span>
+                                    <span id="videoInfoRatio">9:16</span>
+                                    <span aria-hidden="true">•</span>
+                                    <span id="videoInfoRes">1080 × 1920</span>
+                                </div>
+                                <div class="video-result-controls">
+                                    <button id="playBtn" type="button" class="play-btn" disabled aria-label="Play video">▶ Play</button>
+                                    <button id="downloadBtn" type="button" class="download-btn" disabled aria-label="Download video">⬇ Download</button>
+                                </div>
+                            </div>
+
+                            <div class="video-extra-actions">
+                                <button id="resetBtn" type="button" class="reset-btn" hidden>New Generation</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Keep legacy result section for JS compatibility (hidden, not rendered) -->
+            <div hidden>
+                <div id="videoBoxLegacy" aria-hidden="true"></div>
+            </div>
         </main>
 
-
-        <!-- FOOTER -->
         <footer class="footer">
-            <span>CINEMATIC AI</span>
-            <span>AI VIDEO GENERATION • FRONTEND READY</span>
+            <span class="footer__brand"><span class="brand-company">NEXORA</span> © 2026 &nbsp;•&nbsp; <span class="brand-product">CINEMATIC AI</span> — CONTROL DECK</span>
+            <span class="footer__meta"><span class="footer__core">NEXORA AI CORE</span> • PRODUCTION ENGINE <span class="footer__mock">• MOCK READY</span></span>
         </footer>
-
     </div>
 
     <div id="toast" class="toast" hidden role="status" aria-live="polite"></div>
-
-    <!-- JAVASCRIPT -->
     <script src="script.js"></script>
-
 </body>
 </html>
