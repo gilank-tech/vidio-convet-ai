@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cinematic AI - Ubah prompt teks menjadi video sinematik dengan AI. Tulis adegan yang kamu inginkan dan generate video instan.">
+
+    <title>Cinematic AI - AI Video Generator</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- HEADER -->
+        <header class="header">
+            <a href="./" class="logo" aria-label="Cinematic AI - Home">
+                CINEMATIC AI
+            </a>
+
+            <div class="ai-status" aria-live="polite" title="Frontend ready - belum terhubung ke AI backend">
+                <span aria-hidden="true"></span>
+                AI READY
+            </div>
+        </header>
+
+
+        <!-- MAIN -->
+        <main>
+
+            <!-- INTRO -->
+            <section class="intro">
+
+                <p class="subtitle">
+                    AI VIDEO GENERATOR
+                </p>
+
+                <h1>
+                    Turn Your Prompt<br>
+                    Into <span>Cinematic Video</span>
+                </h1>
+
+                <p class="description">
+                    Masukkan prompt apa saja. AI akan memahami
+                    isi prompt dan menghasilkan video sesuai dengan
+                    adegan yang kamu inginkan.
+                </p>
+
+            </section>
+
+
+            <!-- PROMPT -->
+            <section class="generator" aria-labelledby="prompt-title">
+
+                <div class="section-title" id="prompt-title">
+                    <span aria-hidden="true">01</span>
+                    YOUR PROMPT
+                </div>
+
+                <div class="prompt-box">
+
+                    <label for="promptInput" class="sr-only">Prompt video</label>
+
+                    <textarea
+                        id="promptInput"
+                        placeholder="Tulis prompt video kamu di sini... Contoh: Seorang samurai berjalan di hujan malam neon Tokyo, sinematik 4K"
+                        maxlength="2000"
+                        rows="8"
+                        aria-describedby="promptHint promptError charCount"></textarea>
+
+                    <div class="prompt-bottom">
+
+                        <div class="prompt-meta">
+                            <div id="promptHint" class="prompt-hint">
+                                Jelaskan adegan yang ingin kamu buat.
+                            </div>
+                            <p id="promptError" class="prompt-error" hidden role="alert"></p>
+                        </div>
+
+                        <div class="prompt-actions">
+                            <span id="charCount" class="char-count" aria-live="polite">0 / 2000</span>
+                            <button
+                                id="generateBtn"
+                                type="button"
+                                aria-label="Generate video dari prompt">
+                                GENERATE VIDEO
+                                <span aria-hidden="true">✦</span>
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- RESULT -->
+            <section class="result" aria-labelledby="result-title">
+
+                <div class="section-title" id="result-title">
+                    <span aria-hidden="true">02</span>
+                    VIDEO RESULT
+                </div>
+
+                <div class="video-box" id="videoBox" aria-live="polite" aria-busy="false">
+
+                    <div
+                        id="emptyState"
+                        class="empty-state">
+
+                        <div class="play-button" aria-hidden="true">
+                            ▶
+                        </div>
+
+                        <h2>
+                            Your video will appear here
+                        </h2>
+
+                        <p>
+                            Masukkan prompt kemudian tekan
+                            Generate Video.
+                        </p>
+
+                    </div>
+
+                    <div id="loadingState" class="loading-state" hidden>
+                        <div class="spinner" aria-hidden="true"></div>
+                        <p>Generating your cinematic video...</p>
+                        <span>Ini mungkin memakan waktu 30 detik - 2 menit</span>
+                    </div>
+
+                    <video
+                        id="resultVideo"
+                        controls
+                        playsinline
+                        preload="metadata"
+                        poster=""
+                        hidden>
+                    </video>
+
+                    <div id="videoActions" class="video-actions" hidden>
+                        <a id="downloadBtn" class="download-btn" href="#" download="cinematic-video.mp4">DOWNLOAD VIDEO</a>
+                        <button id="resetBtn" type="button" class="reset-btn">BUAT LAGI</button>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <span>CINEMATIC AI</span>
+            <span>AI VIDEO GENERATION • FRONTEND READY</span>
+        </footer>
+
+    </div>
+
+    <div id="toast" class="toast" hidden role="status" aria-live="polite"></div>
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
+
+</body>
+</html>
